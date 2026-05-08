@@ -142,6 +142,7 @@ export async function POST(request: Request) {
       cached: false,
     });
   } catch (error) {
+    console.error("Gemini translation error:", error);
     const message = error instanceof Error ? error.message : "Translation failed.";
     return NextResponse.json({ error: message }, { status: 502 });
   }

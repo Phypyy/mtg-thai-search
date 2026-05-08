@@ -154,9 +154,9 @@ export function CardPreview({ card }: { card: ScryfallCard }) {
             {card.name}
           </h2>
           {card.mana_cost ? (
-            <p className="mt-2 font-mono text-sm text-zinc-600 dark:text-zinc-400">
+            <div className="mt-2 font-mono text-sm text-zinc-600 dark:text-zinc-400">
               <RulesText text={card.mana_cost} />
-            </p>
+            </div>
           ) : null}
           {card.type_line ? (
             <p className="mt-1 text-sm text-cohere-slate dark:text-zinc-400">
