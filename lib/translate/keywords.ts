@@ -5,6 +5,7 @@
 export const KEYWORD_THAI_MAP: Record<string, string> = {
   // Multi-word / phrase (longer first)
   "first strike": "โจมตีก่อน",
+  "when": "เมื่อ",
   "double strike": "โจมตีก่อนสองครั้ง",
   "split second": "เสี้ยววินาที",
   "living weapon": "อาวุธมีชีวิต",
@@ -50,8 +51,8 @@ export const KEYWORD_THAI_MAP: Record<string, string> = {
   "draw two cards": "จั่วการ์ดสองใบ",
   "discard a card": "ทิ้งการ์ดหนึ่งใบ",
   "a creature": "ครีเจอร์หนึ่งตัว",
-  "an artifact": "สิ่งประดิษฐ์หนึ่งชิ้น",
-  "an enchantment": "มนต์เสริมหนึ่งชิ้น",
+  "an artifact": "Artifact หนึ่งชิ้น",
+  "an enchantment": "หนึ่ง Enchantment",
   "a land": "ดินแดนหนึ่งใบ",
   "a token": "โทเค็นหนึ่งตัว",
   "a player": "ผู้เล่นหนึ่งคน",
@@ -124,7 +125,7 @@ export const KEYWORD_THAI_MAP: Record<string, string> = {
   // Targeting & selection
   "target creature or player": "ครีเจอร์หรือผู้เล่นเป้าหมาย",
   "target creature or planeswalker": "ครีเจอร์หรือเพลนส์วอล์คเกอร์เป้าหมาย",
-  "target artifact or enchantment": "สิ่งประดิษฐ์หรือมนต์เสริมเป้าหมาย",
+  "target artifact or enchantment": "Artifact หรือ Enchantment เป้าหมาย",
   "target nonland permanent": "ถาวรวัตถุที่ไม่ใช่ดินแดนเป้าหมาย",
   "target noncreature permanent": "ถาวรวัตถุที่ไม่ใช่ครีเจอร์เป้าหมาย",
   "target opponent": "ฝ่ายตรงข้ามเป้าหมาย",
@@ -181,7 +182,7 @@ export const KEYWORD_THAI_MAP: Record<string, string> = {
   "blood token": "โทเค็นเลือด",
   "blood tokens": "โทเค็นเลือด",
   "creature token": "โทเค็นครีเจอร์",
-  "artifact token": "โทเค็นสิ่งประดิษฐ์",
+  "artifact token": "โทเค็น Artifact",
   "create a token": "สร้างโทเค็น",
   "create a copy": "สร้างสำเนา",
 
@@ -191,8 +192,8 @@ export const KEYWORD_THAI_MAP: Record<string, string> = {
   "noncreature spell": "คาถาที่ไม่ใช่ครีเจอร์",
   "creature spell": "คาถาครีเจอร์",
   "creature card": "การ์ดครีเจอร์",
-  "artifact card": "การ์ดสิ่งประดิษฐ์",
-  "enchantment card": "การ์ดมนต์เสริม",
+  "artifact card": "การ์ด Artifact",
+  "enchantment card": "การ์ด Enchantment",
   "land card": "การ์ดดินแดน",
 
   // Common oracle text patterns
@@ -251,8 +252,8 @@ export const KEYWORD_THAI_MAP: Record<string, string> = {
   "legendary": "ตำนาน",
   "basic land": "ดินแดนพื้นฐาน",
   "creature": "ครีเจอร์",
-  "artifact": "สิ่งประดิษฐ์",
-  "enchantment": "มนต์เสริม",
+  "artifact": "Artifact",
+  "enchantment": "Enchantment",
   "instant": "Instant",
   "sorcery": "Sorcery",
   "planeswalker": "เพลนส์วอล์คเกอร์",
