@@ -1,36 +1,44 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# MTG Thai Card Search
 
-## Getting Started
+Lightweight [Next.js](https://nextjs.org) app to search **Magic: The Gathering** cards via the [Scryfall API](https://scryfall.com/docs/api) and show a **Thai gloss** for common rules text using a client-side keyword map.
 
-First, run the development server:
+## Setup
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Features (this iteration)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Autocomplete** — debounced card-name suggestions from `/cards/autocomplete`.
+- **Named lookup** — selecting a suggestion loads `/cards/named?fuzzy=`.
+- **Search** — submits a Scryfall `q` query to `/cards/search` (e.g. `keyword:flying`, `t:creature cmc=3`).
+- **Thai keyword map** — longest-match replacement on `oracle_text`; remaining English-looking spans are **highlighted** for a future translation API.
+- **Translate API stub** — `POST /api/translate` returns **501** until you wire `TRANSLATION_API_KEY` (see [`.env.example`](.env.example)).
 
-## Learn More
+## Scryfall etiquette
 
-To learn more about Next.js, take a look at the following resources:
+Card data is provided by Scryfall (not affiliated with Wizards of the Coast). Please:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Cache responses when possible (this app uses [SWR](https://swr.vercel.app/) deduping).
+- Space requests modestly; stay under ~10 requests/second as [documented](https://scryfall.com/docs/api).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Stack
 
-## Deploy on Vercel
+- Next.js 16 (App Router), React 19, TypeScript
+- Tailwind CSS v4
+- SWR for autocomplete fetching
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Next steps
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Wire **keyword filter pills** to Scryfall (`keyword:flying`, etc.).
+- Implement **`/api/translate`** with OpenAI / DeepL using `TRANSLATION_API_KEY`.
+- Render **mana symbols** with Scryfall SVG/collector data instead of raw `{W}` strings.
+- Dedicated **card detail** route and tests/CI.
+
+## License
+
+MIT (project code). MTG card names and Oracle text are trademarks of Wizards of the Coast; data © Scryfall.
