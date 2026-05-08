@@ -41,12 +41,23 @@ export function translateOracleText(
         : new RegExp(`\\b${escapeRegex(key)}\\b`, "gi");
     translated = translated.replace(pattern, value);
   }
+  translated = cleanupDanglingEnglishArticles(translated);
 
   return {
     original,
     translated,
     untranslatedRanges: findLatinWordRanges(translated),
   };
+}
+
+/**
+ * Remove dangling English articles that can remain after partial phrase mapping,
+ * e.g. "a ครีเจอร์" -> "ครีเจอร์".
+ */
+function cleanupDanglingEnglishArticles(text: string): string {
+  return text
+    .replace(/\b(?:a|an)\s+(?=[\u0E00-\u0E7F])/gi, "")
+    .replace(/\s{2,}/g, " ");
 }
 
 /** Latin letter runs (4+ chars) outside `{mana}` snippets — likely still English. */

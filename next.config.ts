@@ -13,6 +13,11 @@ const nextConfig: NextConfig = {
         hostname: "c1.scryfall.com",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "svgs.scryfall.io",
+        pathname: "/**",
+      },
     ],
   },
 };
