@@ -98,13 +98,38 @@ export function CardPreview({ card }: { card: ScryfallCard }) {
     let cancelled = false;
     async function maybeTranslate() {
       setGeminiThai(null);
-      if (!oracle || thai.untranslatedRanges.length === 0) return;
+      if (!oracle) return;
+
+      // 1. Try pre-translated cache (instant, no API cost)
+      if (card.oracle_id) {
+        try {
+          const cacheRes = await fetch(
+            `/api/translate/cached?oracle_id=${encodeURIComponent(card.oracle_id)}`,
+          );
+          if (cacheRes.ok) {
+            const cacheData = (await cacheRes.json()) as { translated?: string | null };
+            if (!cancelled && cacheData.translated) {
+              setGeminiThai(cacheData.translated);
+              return;
+            }
+          }
+        } catch {
+          // cache miss — continue to fallback
+        }
+      }
+
+      // 2. If keyword map covers everything, no need for Gemini
+      if (thai.untranslatedRanges.length === 0) return;
+
+      // 3. Try client-side cache
       const cacheKey = makeCacheKey(oracle, "en", "th");
       const cached = getCachedTranslation(cacheKey);
       if (cached) {
         setGeminiThai(cached);
         return;
       }
+
+      // 4. Fall back to Gemini API
       setIsGeminiLoading(true);
       try {
         const res = await fetch("/api/translate", {
@@ -129,7 +154,7 @@ export function CardPreview({ card }: { card: ScryfallCard }) {
     return () => {
       cancelled = true;
     };
-  }, [oracle, thai.untranslatedRanges.length]);
+  }, [oracle, card.oracle_id, thai.untranslatedRanges.length]);
 
   return (
     <div className="grid max-h-[85vh] gap-4 overflow-y-auto md:grid-cols-[260px_minmax(0,1fr)]">
@@ -188,7 +213,7 @@ export function CardPreview({ card }: { card: ScryfallCard }) {
               )}
               {!geminiThai && thai.untranslatedRanges.length > 0 && !isGeminiLoading && (
                 <p className="mt-2 text-xs text-amber-700 dark:text-amber-400">
-                  แสดงผลจาก keyword map ชั่วคราว
+                  แสดงผลจาก keyword map (ยังไม่มีคำแปลสำเร็จรูป)
                 </p>
               )}
             </div>

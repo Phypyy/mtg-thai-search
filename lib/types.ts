@@ -28,6 +28,7 @@ export type ScryfallCardFace = {
 export type ScryfallCard = {
   object: "card";
   id: string;
+  oracle_id?: string;
   name: string;
   mana_cost?: string;
   type_line?: string;
